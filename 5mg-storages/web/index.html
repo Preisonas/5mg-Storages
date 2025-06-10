@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5MG Storage System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dynamic-background" id="dynamicBg">
+        <div class="bg-elements">
+            <div class="floating-orb"></div>
+            <div class="floating-orb"></div>
+            <div class="floating-orb"></div>
+            <div class="grid-overlay"></div>
+            <div class="blur-bg" id="blurBg"></div>
+        </div>
+    </div>
+
+    <div id="app">
+        <div id="purchase-container" class="container">
+            <div class="tablet-frame">
+                <div class="tablet-notch"></div>
+                <div class="content-wrapper">
+                    <div class="header">
+                        <h1><i class="fas fa-box-archive"></i> Storage Units</h1>
+                        <p>Purchase your personal storage unit</p>
+                    </div>
+                    <div class="purchase-content">
+                        <div class="info-card">
+                            <div class="card-header">
+                                <i class="fas fa-info-circle"></i> Storage Information
+                            </div>
+                            <div class="card-content">
+                                <div class="info-row">
+                                    <span>Price:</span>
+                                    <span id="storage-price">$0</span>
+                                </div>
+                                <div class="info-row">
+                                    <span>Initial capacity:</span>
+                                    <span id="storage-capacity">0 slots</span>
+                                </div>
+                                <div class="info-row">
+                                    <span>Can be upgraded:</span>
+                                    <span><i class="fas fa-check"></i> Yes</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="storage-name">Storage name:</label>
+                            <input type="text" id="storage-name" placeholder="Enter storage name">
+                        </div>
+                        
+                        <div class="icon-selection">
+                            <label>Select an icon:</label>
+                            <div class="icon-grid">
+                                <div class="icon-option selected" data-icon="box">
+                                    <i class="fas fa-box"></i>
+                                </div>
+                                <div class="icon-option" data-icon="box-open">
+                                    <i class="fas fa-box-open"></i>
+                                </div>
+                                <div class="icon-option" data-icon="boxes">
+                                    <i class="fas fa-boxes-stacked"></i>
+                                </div>
+                                <div class="icon-option" data-icon="archive">
+                                    <i class="fas fa-box-archive"></i>
+                                </div>
+                                <div class="icon-option" data-icon="warehouse">
+                                    <i class="fas fa-warehouse"></i>
+                                </div>
+                                <div class="icon-option" data-icon="suitcase">
+                                    <i class="fas fa-suitcase"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="button-group">
+                            <button id="purchase-btn" class="btn btn-primary">
+                                <i class="fas fa-shopping-cart"></i> Purchase Storage
+                            </button>
+                            <button id="cancel-purchase-btn" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="management-container" class="container">
+            <div class="tablet-frame">
+                <div class="tablet-notch"></div>
+                <div class="content-wrapper">
+                    <div class="header">
+                        <h1><i class="fas fa-boxes-stacked"></i> My Storage Units</h1>
+                        <p>Manage your storage units</p>
+                        <button id="buy-new-storage-btn" class="btn btn-primary">
+                            <i class="fas fa-plus-circle"></i> Purchase New Storage
+                        </button>
+                    </div>
+                    <div class="management-content">
+                        <div id="storage-list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="storage-detail-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i id="modal-storage-icon" class="fas fa-box"></i> <span id="modal-storage-name">Storage Name</span></h2>
+                    <button class="close-modal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="storage-stats">
+                        <div class="stat-pill">
+                            <i class="fas fa-layer-group"></i>
+                            Level: <span id="storage-level">1</span>
+                        </div>
+                        <div class="stat-pill">
+                            <i class="fas fa-weight-hanging"></i>
+                            Weight: <span id="storage-weight">0</span> kg
+                        </div>
+                    </div>
+
+                    <div class="storage-management-section">
+                        <h3>Actions</h3>
+                        <div class="action-buttons">
+                            <button id="open-storage-btn" class="action-btn">
+                                <i class="fas fa-box-open"></i>
+                                <span>Open Storage</span>
+                            </button>
+                            <button id="rename-storage-btn" class="action-btn">
+                                <i class="fas fa-edit"></i>
+                                <span>Rename Storage</span>
+                            </button>
+                            <button id="upgrade-storage-btn" class="action-btn">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>Upgrade Storage</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rename-modal" class="modal">
+            <div class="modal-content small-modal">
+                <div class="modal-header">
+                    <h2><i class="fas fa-edit"></i> Rename Storage</h2>
+                    <button class="close-modal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="new-storage-name">New name:</label>
+                        <input type="text" id="new-storage-name" placeholder="Enter new storage name">
+                    </div>
+                    <div class="modal-actions">
+                        <button id="confirm-rename-btn" class="btn btn-primary">
+                            <i class="fas fa-check"></i> Confirm
+                        </button>
+                        <button class="btn btn-secondary close-modal">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="icon-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-icons"></i> Select an icon</h2>
+                    <button class="close-modal"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="icon-grid large-grid">
+                        <div class="icon-option" data-icon="box">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="icon-option" data-icon="box-open">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <div class="icon-option" data-icon="boxes-stacked">
+                            <i class="fas fa-boxes-stacked"></i>
+                        </div>
+                        <div class="icon-option" data-icon="box-archive">
+                            <i class="fas fa-box-archive"></i>
+                        </div>
+                        <div class="icon-option" data-icon="warehouse">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <div class="icon-option" data-icon="suitcase">
+                            <i class="fas fa-suitcase"></i>
+                        </div>
+                        <div class="icon-option" data-icon="briefcase">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="icon-option" data-icon="archive">
+                            <i class="fas fa-archive"></i>
+                        </div>
+                        <div class="icon-option" data-icon="toolbox">
+                            <i class="fas fa-toolbox"></i>
+                        </div>
+                        <div class="icon-option" data-icon="truck">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="icon-option" data-icon="vault">
+                            <i class="fas fa-vault"></i>
+                        </div>
+                        <div class="icon-option" data-icon="safe">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button id="confirm-icon-btn" class="btn btn-primary">
+                            <i class="fas fa-check"></i> Confirm
+                        </button>
+                        <button class="btn btn-secondary close-modal">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
