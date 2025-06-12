@@ -26,3 +26,7 @@ A modern and flexible storage (stash) system for FiveM, built to work with all f
 👀 Preview:
 
 https://youtu.be/oTZ-ItNm_DA
+
+Discord: 
+
+https://discord.gg/nzEvK98UzC
